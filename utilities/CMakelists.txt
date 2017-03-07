@@ -1,0 +1,27 @@
+################################################################################
+#
+# CMake File for Utilities unit tests
+#
+# Description: Adds the subdirectories for the unit tests
+#
+# Author: Zhouyu Liu
+#   Date: 03/18/2015
+#
+################################################################################
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/)
+# List the names of all the tests (same as subdirectory)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/kind_parameter.h
+               ${CMAKE_CURRENT_BINARY_DIR}/kind_parameter.h)
+
+
+# library of utilities
+FILE(GLOB srcFiles ${CMAKE_CURRENT_SOURCE_DIR}/*.f90
+                   ${CMAKE_CURRENT_SOURCE_DIR}/*.f
+                   ${CMAKE_CURRENT_BINARY_DIR}/*.h)
+ADD_LIBRARY(utilities STATIC ${srcFiles})
+SET(ENABLE_TEST_utilities ON CACHE BOOL OFF)
+IF(ENABLE_TEST_utilities)
+  ADD_SUBDIRECTORY(unit_tests)
+ENDIF()
